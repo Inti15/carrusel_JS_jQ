@@ -33,3 +33,7 @@ a{
   background-color: white !important;
   cursor: pointer;
 }
+
+button:focus{
+  background-color: white;
+}
