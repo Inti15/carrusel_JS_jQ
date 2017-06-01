@@ -1,35 +1,34 @@
-console.log("Bienvenido");
+// console.log("Bienvenido");
 
 var target = 0;
 var cargarPagina = function () {
   // Elementos
-  var botones = document.querySelectorAll(".control");//$(".control")
-  var anterior = document.querySelector(".prev");
-  var siguiente = document.querySelector(".sig");
+  var $botones = $(".control");//$(".control")
+  var $anterior = $(".prev");
+  var $siguiente = $(".sig");
 
   // Eventos
-  botones.forEach(function (boton) {
     // console.log(boton);
-    boton.addEventListener("click", cambiarImg);
-  });
+  $botones.click(cambiarImg);
+	$anterior.click(prevImg);
+	$siguiente.click(sigImg);
 
-	anterior.addEventListener("click", prevImg);
-	siguiente.addEventListener("click", sigImg);
-
-
+  $(".control").eq(target).focus();
 };
 
 var cambiarImg = function () {
-  target = parseInt(this.dataset.target);
+  target = parseInt($(this).data("target"));
   mostrarImg(target);
 };
 
 var mostrarImg = function (target) {
-  var lastSlide = document.querySelector("div.active");
-  var slide = document.querySelector("div[data-slide='" + target +"']");
+  var $lastSlide = $("div.active");
+  var $slide = $("div[data-slide='" + target +"']");
 
-  lastSlide.classList.remove("active");
-  slide.classList.add("active");
+  $lastSlide.removeClass("active");
+  $slide.addClass("active");
+
+  $(".control").eq(target).focus();
 };
 
 var prevImg = function (e) {
@@ -42,8 +41,9 @@ var prevImg = function (e) {
 var sigImg = function (e) {
   e.preventDefault();
   target = target + 1;
-  target = (target > 3) ? 0 : target;
+  target = (target > 4) ? 0 : target;
   mostrarImg(target);
 };
 
-window.addEventListener("load", cargarPagina);
+$(document).ready(cargarPagina);
+// window.addEventListener("load", cargarPagina);
